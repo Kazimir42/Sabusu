@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\SubscriptionController;
-use App\Models\Subscription;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,9 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::resource('subscriptions', SubscriptionController::class)->middleware('auth:sanctum');
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
+Route::get('/categories/{category}/suppliers', [SupplierController::class, 'index'])->name('categories.suppliers.index');
+
+Route::get('/medias/{media}', [MediaController::class, 'show'])->name('medias.show');

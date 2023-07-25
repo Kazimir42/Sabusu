@@ -7,24 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Subscription extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'title',
-        'frequency',
-        'cost',
-        'user_id'
     ];
 
-    public function user() : BelongsTo
+    public function suppliers() : HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Supplier::class);
     }
 
-    public function category() : BelongsTo
+    public function category() : HasMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Category::class);
     }
+
 }
