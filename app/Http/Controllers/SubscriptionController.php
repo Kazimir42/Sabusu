@@ -14,7 +14,8 @@ class SubscriptionController extends Controller
     {
         $user = Auth::user();
 
-        $subscriptions = $user->subscriptions()->get();
+        $subscriptions = new Subscription();
+        $subscriptions = $subscriptions->with(['category', 'supplier'])->where('user_id', $user->id)->get();
         return response()->json($subscriptions);
     }
 

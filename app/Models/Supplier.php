@@ -20,4 +20,9 @@ class Supplier extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function subscriptions() : hasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }

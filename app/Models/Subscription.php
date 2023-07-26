@@ -27,4 +27,9 @@ class Subscription extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function supplier() : BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }
