@@ -20,8 +20,10 @@ class SubscriptionFactory extends Factory
     {
         return [
             'title' => fake()->name(),
-            'frequency' => 1,
+            'frequency' => rand(1, 4),
             'cost' => fake()->randomDigit(),
+            'subscribed_at' => fake()->dateTimeBetween(),
+            'payment_at' => fake()->dateTimeBetween(),
             'user_id' => 1
         ];
     }

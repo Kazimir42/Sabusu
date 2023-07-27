@@ -15,6 +15,8 @@ class Subscription extends Model
         'title',
         'frequency',
         'cost',
+        'subscribed_at',
+        'payment_at',
         'user_id'
     ];
 
