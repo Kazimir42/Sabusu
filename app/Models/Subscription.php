@@ -14,10 +14,12 @@ class Subscription extends Model
     protected $fillable = [
         'title',
         'frequency',
-        'cost',
+        'amount',
         'subscribed_at',
         'payment_at',
-        'user_id'
+        'category_id',
+        'supplier_id',
+        'user_id',
     ];
 
     public function user() : BelongsTo

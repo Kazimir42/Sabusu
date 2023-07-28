@@ -18,14 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth.api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::resource('subscriptions', SubscriptionController::class);
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/{category}/suppliers', [SupplierController::class, 'index'])->name('categories.suppliers.index');
+    Route::get('/medias/{media}', [MediaController::class, 'show'])->name('medias.show');
 });
-
-Route::resource('subscriptions', SubscriptionController::class)->middleware('auth:sanctum');
-
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-
-Route::get('/categories/{category}/suppliers', [SupplierController::class, 'index'])->name('categories.suppliers.index');
-
-Route::get('/medias/{media}', [MediaController::class, 'show'])->name('medias.show');

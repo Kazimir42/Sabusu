@@ -14,21 +14,13 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): JsonResponse
+    public function store(LoginRequest $request): Response
     {
-        $credentials = $request->only('email', 'password');
+        $request->authenticate();
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
+        $request->session()->regenerate();
 
-            return response()->json([
-                'token' => $token,
-                'user' => $user,
-            ], 200);
-        }
-
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return response()->noContent();
     }
 
     /**

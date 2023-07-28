@@ -28,7 +28,13 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        $user = Auth::user();
+
+        $subscription = new Subscription();
+        $subscription->fill([...$request->all(), 'user_id' => $user->id]);
+        $subscription->save();
+
+        return response()->json($subscription);
     }
 
 }

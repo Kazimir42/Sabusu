@@ -21,7 +21,7 @@ class SubscriptionFactory extends Factory
         return [
             'title' => fake()->name(),
             'frequency' => rand(1, 4),
-            'cost' => fake()->randomDigit(),
+            'amount' => fake()->randomDigit(),
             'subscribed_at' => fake()->dateTimeBetween(),
             'payment_at' => fake()->dateTimeBetween(),
             'user_id' => 1

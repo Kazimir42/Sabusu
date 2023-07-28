@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->integer('frequency');
-            $table->double('cost');
+            $table->double('amount');
             $table->date('subscribed_at')->nullable();
             $table->date('payment_at')->nullable();
             $table->foreignIdFor(\App\Models\User::class, 'user_id');
