@@ -9,6 +9,6 @@ class CategoryController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Category::all());
+        return response()->json(Category::with('medias')->get());
     }
 }

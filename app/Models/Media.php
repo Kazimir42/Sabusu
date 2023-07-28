@@ -10,11 +10,14 @@ class Media extends Model
 {
     use HasFactory;
 
+    public $table = 'medias';
+
     protected $fillable = [
         'title',
         'path',
         'type',
         'hash',
+        'order'
     ];
 
     public function object(): MorphTo

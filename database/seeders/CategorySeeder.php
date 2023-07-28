@@ -12,6 +12,18 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->count(10)->create();
+        $categories[] = ['title' => 'Power'];
+        $categories[] = ['title' => 'Internet'];
+        $categories[] = ['title' => 'Insurance'];
+        $categories[] = ['title' => 'Magazine'];
+        $categories[] = ['title' => 'Sport'];
+        $categories[] = ['title' => 'Distraction'];
+        $categories[] = ['title' => 'Transport'];
+        $categories[] = ['title' => 'Bank charges'];
+        $categories[] = ['title' => 'Other'];
+
+        foreach ($categories as $category) {
+            (new Category())->create($category);
+        }
     }
 }

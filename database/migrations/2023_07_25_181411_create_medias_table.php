@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('path');
             $table->string('content_type');
             $table->string('hash');
+            $table->integer('order');
             $table->morphs('object');
             $table->timestamps();
         });
