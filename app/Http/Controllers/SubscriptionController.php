@@ -23,6 +23,8 @@ class SubscriptionController extends Controller
     {
         $subscription = Subscription::findOrFail($id);
 
+        $subscription->load('category', 'supplier');
+
         return response()->json($subscription);
     }
 
