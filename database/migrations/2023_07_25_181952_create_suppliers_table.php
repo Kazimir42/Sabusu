@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignIdFor(\App\Models\Category::class, 'category_id');
+            $table->foreignIdFor(\App\Models\User::class, 'user_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

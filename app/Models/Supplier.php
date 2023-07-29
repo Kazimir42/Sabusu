@@ -15,6 +15,7 @@ class Supplier extends Model
     protected $fillable = [
         'title',
         'category_id',
+        'user_id',
     ];
 
     public function category() : belongsTo
@@ -25,5 +26,10 @@ class Supplier extends Model
     public function subscriptions() : hasMany
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function user() : belongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

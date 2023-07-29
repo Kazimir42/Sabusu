@@ -26,5 +26,6 @@ Route::middleware('auth.api')->group(function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/{category}/suppliers', [SupplierController::class, 'index'])->name('categories.suppliers.index');
+    Route::post('/categories/{category}/suppliers', [SupplierController::class, 'store'])->name('categories.suppliers.store');
     Route::get('/medias/{media}', [MediaController::class, 'show'])->name('medias.show');
 });
