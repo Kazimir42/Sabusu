@@ -19,3 +19,8 @@ Route::get('/', function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('storage/images/category/{filename}', function ($filename) {
+    $path = storage_path('app/public/images/category/' . $filename);
+    return response()->file($path);
+});

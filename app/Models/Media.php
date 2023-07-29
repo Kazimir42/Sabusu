@@ -15,9 +15,11 @@ class Media extends Model
     protected $fillable = [
         'title',
         'path',
-        'type',
+        'content_type',
         'hash',
-        'order'
+        'order',
+        'object_type',
+        'object_id',
     ];
 
     public function object(): MorphTo

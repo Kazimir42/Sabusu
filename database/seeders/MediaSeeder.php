@@ -57,10 +57,10 @@ class MediaSeeder extends Seeder
 
         $images = [
             'Other' => ['title' => 'puzzle.svg', 'folder' => 'svg/'],
-            'Basic-Fit' => ['title' => 'Basic-Fit_logo.png', 'folder' => 'category/'],
-            'Spotify' => ['title' => 'Spotify_logo.png', 'folder' => 'category/'],
-            'Netflix' => ['title' => 'Netflix_logo.png', 'folder' => 'category/'],
-            'Proton' => ['title' => 'Proton_logo.png', 'folder' => 'category/'],
+            'Basic-Fit' => ['title' => 'Basic-Fit_logo.png', 'folder' => 'images/category/'],
+            'Spotify' => ['title' => 'Spotify_logo.png', 'folder' => 'images/category/'],
+            'Netflix' => ['title' => 'Netflix_logo.png', 'folder' => 'images/category/'],
+            'Proton' => ['title' => 'Proton_logo.png', 'folder' => 'images/category/'],
         ];
 
         foreach ($suppliers as $supplier) {
