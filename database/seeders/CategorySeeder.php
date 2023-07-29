@@ -15,11 +15,13 @@ class CategorySeeder extends Seeder
         $categories[] = ['title' => 'Power'];
         $categories[] = ['title' => 'Internet'];
         $categories[] = ['title' => 'Insurance'];
+        $categories[] = ['title' => 'Mobile'];
         $categories[] = ['title' => 'Magazine'];
         $categories[] = ['title' => 'Sport'];
         $categories[] = ['title' => 'Distraction'];
         $categories[] = ['title' => 'Transport'];
         $categories[] = ['title' => 'Bank charges'];
+        $categories[] = ['title' => 'Software'];
         $categories[] = ['title' => 'Other'];
 
         foreach ($categories as $category) {

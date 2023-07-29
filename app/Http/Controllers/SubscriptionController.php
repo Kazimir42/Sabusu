@@ -15,7 +15,7 @@ class SubscriptionController extends Controller
         $user = Auth::user();
 
         $subscriptions = new Subscription();
-        $subscriptions = $subscriptions->with(['category', 'supplier'])->where('user_id', $user->id)->get();
+        $subscriptions = $subscriptions->with(['category', 'category.medias', 'supplier', 'supplier.medias'])->where('user_id', $user->id)->get();
         return response()->json($subscriptions);
     }
 
@@ -23,7 +23,7 @@ class SubscriptionController extends Controller
     {
         $subscription = Subscription::findOrFail($id);
 
-        $subscription->load('category', 'supplier');
+        $subscription->load(['category', 'category.medias', 'supplier', 'supplier.medias']);
 
         return response()->json($subscription);
     }

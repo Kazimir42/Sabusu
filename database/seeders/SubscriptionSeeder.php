@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Subscription;
+use App\Models\Supplier;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,5 +21,11 @@ class SubscriptionSeeder extends Seeder
                 'supplier_id' => $category->suppliers()->first()->id,
             ]);
         });
+
+        (new Supplier())->create([
+            ''
+        ]);
+
+
     }
 }
