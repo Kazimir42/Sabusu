@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Subscription;
 use App\Models\Supplier;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,17 +16,16 @@ class SubscriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        Category::all()->take(5)->each(function (Category $category) {
-            Subscription::factory()->count(5)->create([
-                'category_id' => $category->id,
-                'supplier_id' => $category->suppliers()->first()->id,
-            ]);
-        });
-
-        (new Supplier())->create([
-            ''
+        $spotify = Supplier::where('title', 'Spotify')->first();
+        (new Subscription())->create([
+            'title' => 'Spotify Rémi',
+            'frequency' => 1,
+            'amount' => 10,
+            'subscribed_at' => Carbon::now()->subMonth(12),
+            'payment_at' => Carbon::now()->subDay(10),
+            'user_id' => 1,
+            'supplier_id' => $spotify->id,
+            'category_id' => $spotify->category->id
         ]);
-
-
     }
 }

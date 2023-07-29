@@ -9,6 +9,6 @@ class SupplierController extends Controller
 {
     public function index(Category $category): JsonResponse
     {
-        return response()->json($category->suppliers()->get());
+        return response()->json($category->suppliers()->with('medias')->get());
     }
 }
