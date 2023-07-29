@@ -23,8 +23,8 @@ class SubscriptionController extends Controller
 
         $datas = [
             'subscriptions' => $subscriptions,
-            'total_monthly_cost' => $this->subscriptionService->totalMonthlyCost($subscriptions),
-            'most_expensive_category' => $this->subscriptionService->mostExpensiveCategory($subscriptions),
+            'total_monthly_cost' => $subscriptions->isNotEmpty() ? $this->subscriptionService->totalMonthlyCost($subscriptions) : null,
+            'most_expensive_category' => $subscriptions->isNotEmpty() ? $this->subscriptionService->mostExpensiveCategory($subscriptions) : null,
         ];
 
         return response()->json($datas);
@@ -48,6 +48,12 @@ class SubscriptionController extends Controller
         $subscription->save();
 
         return response()->json($subscription);
+    }
+
+    public function destroy($id)
+    {
+        $subscription = Subscription::findOrFail($id);
+        $subscription->delete();
     }
 
 }

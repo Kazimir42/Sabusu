@@ -17,9 +17,9 @@ return new class extends Migration {
             $table->double('amount');
             $table->date('subscribed_at')->nullable();
             $table->date('payment_at')->nullable();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
-            $table->foreignIdFor(\App\Models\Category::class, 'category_id');
-            $table->foreignIdFor(\App\Models\Supplier::class, 'supplier_id')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId( 'category_id')->constrained('categories');
+            $table->foreignId( 'supplier_id')->constrained('suppliers');
             $table->softDeletes();
             $table->timestamps();
         });

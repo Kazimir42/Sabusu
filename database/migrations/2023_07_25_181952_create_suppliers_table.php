@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignIdFor(\App\Models\Category::class, 'category_id');
-            $table->foreignIdFor(\App\Models\User::class, 'user_id')->nullable();
+            $table->foreignId( 'category_id')->constrained('categories');
+            $table->foreignId( 'user_id')->nullable()->constrained('users');
             $table->softDeletes();
             $table->timestamps();
         });
