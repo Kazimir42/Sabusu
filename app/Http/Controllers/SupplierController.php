@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class SupplierController extends Controller
 {
+
     public function index(Category $category): JsonResponse
     {
         $user = Auth::user();
 
         $categories = $category->suppliers()->with('medias')->where('user_id', '=', null)->orWhere('user_id', '=', $user->id)->get();
+
         return response()->json($categories);
     }
 

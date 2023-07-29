@@ -15,12 +15,12 @@ class Category extends Model
         'title',
     ];
 
-    public function suppliers() : HasMany
+    public function suppliers(): HasMany
     {
         return $this->hasMany(Supplier::class);
     }
 
-    public function category() : HasMany
+    public function category(): HasMany
     {
         return $this->hasMany(Category::class);
     }
