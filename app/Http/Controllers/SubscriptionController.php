@@ -30,6 +30,25 @@ class SubscriptionController extends Controller
         return response()->json($datas);
     }
 
+    public function datas(): JsonResponse
+    {
+        $user = Auth::user();
+
+        $subscriptions = new Subscription();
+        $subscriptions = $subscriptions->with(['category', 'category.medias', 'supplier', 'supplier.medias'])->where('user_id', $user->id)->get();
+
+        $datas = [
+            'total_subscriptions' => $subscriptions->count(),
+            'total_monthly_cost' => $subscriptions->isNotEmpty() ? $this->subscriptionService->totalMonthlyCost($subscriptions) : null,
+            'most_expensive_category' => $subscriptions->isNotEmpty() ? $this->subscriptionService->mostExpensiveCategory($subscriptions) : null,
+            'most_expensive_subscription' => $subscriptions->isNotEmpty() ? $this->subscriptionService->mostExpensiveSubscription($subscriptions) : null,
+            'distribution_by_categories' =>  $subscriptions->isNotEmpty() ? $this->subscriptionService->distributionByCategories($subscriptions) : null,
+            'distribution_by_suppliers' =>  $subscriptions->isNotEmpty() ? $this->subscriptionService->distributionBySuppliers($subscriptions) : null,
+        ];
+
+        return response()->json($datas);
+    }
+
     public function show($id): JsonResponse
     {
         $subscription = Subscription::findOrFail($id);

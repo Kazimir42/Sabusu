@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Enums\FrequencyEnum;
 use App\Models\Category;
+use App\Models\Subscription;
 
 class SubscriptionService
 {
@@ -39,6 +40,67 @@ class SubscriptionService
         $highestIndex = array_search($highestValue, $categories);
 
         return Category::find($highestIndex);
+    }
+
+    public function mostExpensiveSubscription($subscriptions)
+    {
+        $highestSubscription = new Subscription();
+
+        foreach ($subscriptions as $subscription) {
+            $highestSubscription = $subscription->amount > ($highestSubscription->amount ?? 0) ? $subscription : $highestSubscription;
+        }
+
+        return $highestSubscription;
+    }
+
+    public function distributionByCategories($subscriptions)
+    {
+        $datas = [];
+
+        foreach ($subscriptions as $subscription) {
+            if (array_key_exists($subscription->category->title, $datas)) {
+                $datas[$subscription->category->title] += $this->monthlyCost($subscription);
+            } else {
+                $datas[$subscription->category->title] = $this->monthlyCost($subscription);
+            }
+        }
+
+        arsort($datas);
+
+        $result = [];
+        foreach ($datas as $name => $value) {
+            $result[] = [
+                "name" => $name,
+                "value" => $value
+            ];
+        }
+
+        return $result;
+    }
+
+    public function distributionBySuppliers($subscriptions)
+    {
+        $datas = [];
+
+        foreach ($subscriptions as $subscription) {
+            if (array_key_exists($subscription->supplier->title, $datas)) {
+                $datas[$subscription->supplier->title] += $this->monthlyCost($subscription);
+            } else {
+                $datas[$subscription->supplier->title] = $this->monthlyCost($subscription);
+            }
+        }
+
+        arsort($datas);
+
+        $result = [];
+        foreach ($datas as $name => $value) {
+            $result[] = [
+                "name" => $name,
+                "value" => $value
+            ];
+        }
+
+        return $result;
     }
 
     private function monthlyCost($subscription): float|int
