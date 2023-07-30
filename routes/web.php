@@ -20,7 +20,7 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('storage/images/supplier/{filename}', function ($filename) {
     $path = storage_path('app/public/images/supplier/' . $filename);
@@ -34,10 +34,18 @@ Route::get('storage/images/category/{filename}', function ($filename) {
 
 
 // ONLY TO TEST, SHOULD BE REMOVED ON PROD
-Route::get('test', function () {
+Route::get('test/{id}', function ($id) {
     $user = Auth::user();
 
-    return response()->json($user->suppliers()->get()->load('medias'));
+    $category = \App\Models\Category::find($id);
+
+    $categories = $category->suppliers()->with('medias')->where(function ($query) use ($user) {
+        $query->where('user_id', null)
+            ->orWhere('user_id', $user->id);
+    })->get();
+
+    dd($categories);
+    //return response()->json($user->suppliers()->get()->load('medias'));
     // test things
 });
 

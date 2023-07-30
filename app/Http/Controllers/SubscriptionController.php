@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
-use App\Models\User;
 use App\Service\SubscriptionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,6 +13,7 @@ class SubscriptionController extends Controller
     public function __construct(protected SubscriptionService $subscriptionService)
     {
     }
+
     public function index(): JsonResponse
     {
         $user = Auth::user();
@@ -41,6 +41,12 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'frequency' => 'required|numeric',
+            'amount' => 'required|numeric',
+        ]);
+
         $user = Auth::user();
 
         $subscription = new Subscription();
@@ -52,6 +58,12 @@ class SubscriptionController extends Controller
 
     public function update(Request $request, $id): JsonResponse
     {
+        $request->validate([
+            'title' => 'required',
+            'frequency' => 'required|numeric',
+            'amount' => 'required|numeric',
+        ]);
+
         $subscription = Subscription::findOrFail($id);
 
         $subscription->fill([...$request->all()]);

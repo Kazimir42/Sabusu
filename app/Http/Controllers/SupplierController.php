@@ -17,7 +17,10 @@ class SupplierController extends Controller
     {
         $user = Auth::user();
 
-        $categories = $category->suppliers()->with('medias')->where('user_id', '=', null)->orWhere('user_id', '=', $user->id)->get();
+        $categories = $category->suppliers()->with('medias')->where(function ($query) use ($user) {
+            $query->where('user_id', null)
+                ->orWhere('user_id', $user->id);
+        })->get();
 
         return response()->json($categories);
     }
