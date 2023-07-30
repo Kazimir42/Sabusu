@@ -18,17 +18,33 @@ class Supplier extends Model
         'user_id',
     ];
 
-    public function category() : belongsTo
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($supplier) {
+
+            $supplier->subscriptions->each(function ($subscription) {
+                $subscription->delete();
+            });
+
+            $supplier->medias->each(function ($media) {
+                $media->delete();
+            });
+        });
+    }
+
+    public function category(): belongsTo
     {
         return $this->belongsTo(Supplier::class);
     }
 
-    public function subscriptions() : hasMany
+    public function subscriptions(): hasMany
     {
         return $this->hasMany(Subscription::class);
     }
 
-    public function user() : belongsTo
+    public function user(): belongsTo
     {
         return $this->belongsTo(User::class);
     }

@@ -50,6 +50,18 @@ class SubscriptionController extends Controller
         return response()->json($subscription);
     }
 
+    public function update(Request $request, $id): JsonResponse
+    {
+        $subscription = Subscription::findOrFail($id);
+
+        $subscription->fill([...$request->all()]);
+        $subscription->save();
+
+        $subscription->load(['category', 'category.medias', 'supplier', 'supplier.medias']);
+
+        return response()->json($subscription);
+    }
+
     public function destroy($id)
     {
         $subscription = Subscription::findOrFail($id);

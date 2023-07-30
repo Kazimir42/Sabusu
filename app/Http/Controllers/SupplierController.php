@@ -37,11 +37,11 @@ class SupplierController extends Controller
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
 
-            Storage::disk('public')->putFileAs('images/category/', $image, $imageName);
+            Storage::disk('public')->putFileAs('images/supplier/', $image, $imageName);
 
             $media = Media::create([
                 'title' => $imageName,
-                'path' => 'storage/images/category/' . $imageName,
+                'path' => 'storage/images/supplier/' . $imageName,
                 'content_type' => $image->getClientMimeType(),
                 'hash' => md5_file($image->getRealPath()),
                 'order' => 1,

@@ -3,6 +3,7 @@
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,11 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('storage/images/supplier/{filename}', function ($filename) {
+    $path = storage_path('app/public/images/supplier/' . $filename);
+    return response()->file($path);
+});
+
 Route::get('storage/images/category/{filename}', function ($filename) {
     $path = storage_path('app/public/images/category/' . $filename);
     return response()->file($path);
@@ -31,11 +37,21 @@ Route::get('storage/images/category/{filename}', function ($filename) {
 Route::get('test', function () {
     $user = Auth::user();
 
-    $subscriptions = new Subscription();
-    $subscriptions = $subscriptions->with(['category', 'category.medias', 'supplier', 'supplier.medias'])->where('user_id', $user->id)->get();
+    return response()->json($user->suppliers()->get()->load('medias'));
+    // test things
+});
 
-    $service = new \App\Service\SubscriptionService();
-    $service->mostExpensiveCategory($subscriptions);
+
+// ONLY TO TEST, SHOULD BE REMOVED ON PROD
+Route::get('test/{media}', function (\App\Models\Media $media) {
+
+    $media->delete();
+
+    //$path = str_replace('storage/', '', $media->path);
+//
+    //if (Storage::disk('public')->exists($path)) {
+    //    Storage::disk('public')->delete($path);
+    //}
 
     // test things
 });

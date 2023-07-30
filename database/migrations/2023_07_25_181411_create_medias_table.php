@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('order');
             $table->morphs('object');
             $table->timestamps();
+
+            $table->index(['object_id', 'object_type']);
         });
     }
 
